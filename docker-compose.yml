@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DOTNET_USE_POLLING_FILE_WATCHER: 1  
+      ASPNETCORE_URLS: http://+:5000
+      YO: yeyeye
+    ports:
+      - 5000:5000
+    volumes:
+      - ./api:/app/api:delegated
+    command: dotnet watch run 
