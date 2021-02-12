@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using System;
-
-record SayHelloInput(string Name);
-record SayHelloOutput(string Message);
+using static SayHelloGorilla;
 
 public class SayHelloEndpoint : IApiEndpoint
 {
@@ -17,8 +15,7 @@ public class SayHelloEndpoint : IApiEndpoint
   {
     var name = (string)ctx.Request.RouteValues["Name"];
     var input = new SayHelloInput(name);
-    var message = $"Hello {input.Name} {Environment.GetEnvironmentVariable("YO")}";
-    var output = new SayHelloOutput(message);
+    var output = SayHello(input);
     await ctx.Response.WriteAsJsonAsync(output);
   };
 }
